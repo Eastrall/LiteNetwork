@@ -21,7 +21,7 @@ namespace LiteNetwork.Server
     /// <typeparam name="TUser">The user type that the server will be use.</typeparam>
     public class LiteServer<TUser> : ILiteServer<TUser> where TUser : LiteServerUser
     {
-        private readonly ILogger<LiteServer<TUser>>? _logger;
+        protected readonly ILogger<LiteServer<TUser>>? _logger;
         private readonly IServiceProvider _serviceProvider;
         private readonly ConcurrentDictionary<Guid, TUser> _connectedUsers;
         private readonly Socket _socket;

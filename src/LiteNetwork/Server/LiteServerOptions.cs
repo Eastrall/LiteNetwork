@@ -1,5 +1,6 @@
 ﻿using LiteNetwork.Protocol;
 using LiteNetwork.Protocol.Abstractions;
+using System;
 
 namespace LiteNetwork.Server
 {
@@ -12,6 +13,11 @@ namespace LiteNetwork.Server
         /// Gets the default maximum of connections in accept queue.
         /// </summary>
         public const int DefaultBacklog = 50;
+
+        /// <summary>
+        /// Gets the default header size, which is 4 bytes (int value).
+        /// </summary>
+        public const int DefaultHeaderSize = 4;
 
         /// <summary>
         /// Gets the default client buffer allocated size.
@@ -39,14 +45,21 @@ namespace LiteNetwork.Server
         public int ClientBufferSize { get; set; } = DefaultClientBufferSize;
 
         /// <summary>
+        /// TCP packet header size in bytes.
+        /// </summary>
+        public int HeaderSize { get; set; } = DefaultHeaderSize;
+
+        /// <summary>
         /// Gets or sets the receive strategy type.
         /// </summary>
         public ReceiveStrategyType ReceiveStrategy { get; set; }
 
+        private readonly Lazy<ILitePacketProcessor> _lazyPacketProcessor;
+
         /// <summary>
         /// Gets the default server packet processor.
         /// </summary>
-        public ILitePacketProcessor PacketProcessor { get; set; }
+        public ILitePacketProcessor PacketProcessor { get => _lazyPacketProcessor.Value; }
 
         /// <summary>
         /// Creates and initializes a new <see cref="LiteServerOptions"/> instance
@@ -54,7 +67,7 @@ namespace LiteNetwork.Server
         /// </summary>
         public LiteServerOptions()
         {
-            PacketProcessor = new LitePacketProcessor();
+            _lazyPacketProcessor = new Lazy<ILitePacketProcessor>(() => new LitePacketProcessor(HeaderSize));
         }
     }
 }

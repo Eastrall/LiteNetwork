@@ -51,5 +51,20 @@ namespace LiteNetwork.Protocol.Tests
         {
             Assert.False(_packetProcessor.IncludeHeader);
         }
+
+        [Theory]
+        [InlineData(35)]
+        [InlineData(23)]
+        [InlineData(0x4A)]
+        [InlineData(0)]
+        public void DefaultPacketProcessorCanHaveConfigurableHeaderSize(short headerValue)
+        {
+            var packetProcessor = new LitePacketProcessor(sizeof(short));
+
+            var headerBuffer = BitConverter.GetBytes(headerValue);
+            int packetSize = packetProcessor.GetMessageLength(headerBuffer);
+
+            Assert.Equal(headerValue, packetSize);
+        }
     }
 }

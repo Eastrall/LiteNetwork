@@ -81,5 +81,29 @@ namespace LiteNetwork.Protocol.Tests
 
             packet.Dispose();
         }
+
+        [Fact]
+        public void CreatePacketWithCustomHeaderSize()
+        {
+            const int HeaderSize = sizeof(ushort);
+            const int DataSize = sizeof(short) + sizeof(float);
+            var shortValue = _randomizer.Short();
+            var floatValue = _randomizer.Float();
+
+            var packet = new LitePacket(HeaderSize);
+
+            packet.Write(shortValue);
+            packet.Write(floatValue);
+
+            Assert.Equal(LitePacketMode.Write, packet.Mode);
+            Assert.NotNull(packet.Buffer);
+            Assert.Equal(HeaderSize + DataSize, packet.Buffer.Length);
+            Assert.Equal(DataSize, packet.ContentLength);
+            Assert.Equal(DataSize, BitConverter.ToInt16(packet.Buffer, 0));
+            Assert.Equal(shortValue, BitConverter.ToInt16(packet.Buffer, HeaderSize));
+            Assert.Equal(floatValue, BitConverter.ToSingle(packet.Buffer, HeaderSize + sizeof(short)));
+
+            packet.Dispose();
+        }
     }
 }
