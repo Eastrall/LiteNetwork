@@ -17,7 +17,7 @@ namespace LiteNetwork.Server
         /// <summary>
         /// Gets the default header size, which is 4 bytes (int value).
         /// </summary>
-        public const int DefaultHeaderSize = 4;
+        public const int DefaultHeaderSize = sizeof(int);
 
         /// <summary>
         /// Gets the default client buffer allocated size.

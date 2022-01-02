@@ -17,7 +17,7 @@ namespace LiteNetwork.Client
         /// <summary>
         /// Gets the default header size, which is 4 bytes (int value).
         /// </summary>
-        public const int DefaultHeaderSize = 4;
+        public const int DefaultHeaderSize = sizeof(int);
 
         /// <summary>
         /// Gets or sets the remote host to connect.

@@ -9,7 +9,7 @@ namespace LiteNetwork.Protocol
     /// </summary>
     public class LitePacketProcessor : ILitePacketProcessor
     {
-        public LitePacketProcessor(int headerSize = 4)
+        public LitePacketProcessor(int headerSize = sizeof(int))
         {
             HeaderSize = headerSize;
         }
