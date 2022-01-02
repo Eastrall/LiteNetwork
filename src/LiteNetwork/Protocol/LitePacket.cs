@@ -11,7 +11,7 @@ namespace LiteNetwork.Protocol
         /// <summary>
         /// Gets the default <see cref="LitePacket"/> header size. (4 bytes)
         /// </summary>
-        public readonly int HeaderSize = sizeof(int);
+        private readonly int HeaderSize = sizeof(int);
 
         /// <inheritdoc />
         public override byte[] Buffer
