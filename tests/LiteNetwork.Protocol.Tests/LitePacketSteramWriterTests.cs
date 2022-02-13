@@ -254,7 +254,7 @@ namespace LiteNetwork.Protocol.Tests
 
         private void PacketStreamWritePrimitive<T>(T valueToWrite, byte[] expectedByteArray, bool adjustBuffer = true)
         {
-            using (ILitePacketStream packetStream = new LitePacketStream())
+            using (var packetStream = new LitePacketStream())
             {
                 Assert.Equal(LitePacketMode.Write, packetStream.Mode);
 
@@ -266,9 +266,9 @@ namespace LiteNetwork.Protocol.Tests
             }
         }
 
-        private void PacketStreamWritePrimitiveMethod<T>(Action<ILitePacketStream, T> method, T valueToWrite, byte[] expectedByteArray, bool adjustBuffer = true)
+        private void PacketStreamWritePrimitiveMethod<T>(Action<LitePacketStream, T> method, T valueToWrite, byte[] expectedByteArray, bool adjustBuffer = true)
         {
-            using (ILitePacketStream packetStream = new LitePacketStream())
+            using (var packetStream = new LitePacketStream())
             {
                 Assert.Equal(LitePacketMode.Write, packetStream.Mode);
 

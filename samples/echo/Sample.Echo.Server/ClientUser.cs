@@ -10,7 +10,7 @@ namespace LiteNetwork.Sample.Echo.Server
     {
         public override Task HandleMessageAsync(ILitePacketStream incomingPacketStream)
         {
-            string receivedMessage = incomingPacketStream.ReadString();
+            string receivedMessage = incomingPacketStream.Read<string>();
 
             Console.WriteLine($"Received from '{Id}': {receivedMessage}");
 

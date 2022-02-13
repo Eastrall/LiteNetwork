@@ -14,7 +14,7 @@ namespace Sample.Echo.Client
 
         public override Task HandleMessageAsync(ILitePacketStream incomingPacketStream)
         {
-            string message = incomingPacketStream.ReadString();
+            string message = incomingPacketStream.Read<string>();
 
             Console.WriteLine($"Received from server: {message}");
 
