@@ -112,9 +112,13 @@ public class LitePacketProcessor : ILitePacketProcessor
         byte[] packetBuffer = new byte[HeaderSize + buffer.Length];
         
         if(IsLittleEndianMode)
+        {
             BinaryPrimitives.WriteInt32LittleEndian(packetBuffer, contentLength);
+        }
         else
+        {
             BinaryPrimitives.WriteInt32BigEndian(packetBuffer, contentLength);
+        }
 
         Array.Copy(buffer, 0, packetBuffer, HeaderSize, contentLength);
 
