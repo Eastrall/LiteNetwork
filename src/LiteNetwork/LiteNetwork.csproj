@@ -3,10 +3,10 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net5.0;net6.0;net7.0</TargetFrameworks>
 		<LangVersion>10.0</LangVersion>
-		<Version>2.2.0</Version>
+		<Version>2.3.0</Version>
 		<Authors>Filipe GOMES PEIXOTO</Authors>
 		<Product>LiteNetwork</Product>
-		<Copyright>Filipe GOMES PEIXOTO © 2019-2022</Copyright>
+		<Copyright>Filipe GOMES PEIXOTO © 2019-2023</Copyright>
 		<Company>Filipe GOMES PEIXOTO</Company>
 		<PackageProjectUrl>https://github.com/Eastrall/LiteNetwork</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Eastrall/LiteNetwork</RepositoryUrl>

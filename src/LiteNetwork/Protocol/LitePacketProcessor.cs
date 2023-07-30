@@ -18,7 +18,7 @@ public class LitePacketProcessor : ILitePacketProcessor
     }
 
     /// <summary>
-    ///     Create a new <see cref="LitePacketProcessor"/>.
+    /// Create a new <see cref="LitePacketProcessor"/>.
     /// </summary>
     /// <param name="isLittleEndianMode">Header byte order mode.</param>
     public LitePacketProcessor(bool isLittleEndianMode)
@@ -33,7 +33,7 @@ public class LitePacketProcessor : ILitePacketProcessor
     public virtual bool IncludeHeader { get; protected set; }
 
     /// <summary>
-    ///     Header byte order mode.
+    /// Header byte order mode.
     /// </summary>
     public bool IsLittleEndianMode { get; }
 
