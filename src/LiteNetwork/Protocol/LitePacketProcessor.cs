@@ -1,6 +1,6 @@
 ﻿using LiteNetwork.Protocol.Abstractions;
 using System;
-using System.Linq;
+using System.Buffers.Binary;
 
 namespace LiteNetwork.Protocol;
 
@@ -9,18 +9,40 @@ namespace LiteNetwork.Protocol;
 /// </summary>
 public class LitePacketProcessor : ILitePacketProcessor
 {
+    /// <summary>
+    ///     Create a new <see cref="LitePacketProcessor"/>.
+    /// </summary>
+    public LitePacketProcessor()
+    {
+        IsLittleEndianMode = BitConverter.IsLittleEndian;
+    }
+
+    /// <summary>
+    ///     Create a new <see cref="LitePacketProcessor"/>.
+    /// </summary>
+    /// <param name="isLittleEndianMode">Header byte order mode.</param>
+    public LitePacketProcessor(bool isLittleEndianMode)
+    {
+        IsLittleEndianMode = isLittleEndianMode;
+    }
+
     /// <inheritdoc/>
     public virtual int HeaderSize { get; protected set; } = sizeof(int);
 
     /// <inheritdoc/>
     public virtual bool IncludeHeader { get; protected set; }
 
+    /// <summary>
+    ///     Header byte order mode.
+    /// </summary>
+    public bool IsLittleEndianMode { get; }
+
     /// <inheritdoc/>
     public virtual int GetMessageLength(byte[] buffer)
     {
-        return BitConverter.ToInt32(BitConverter.IsLittleEndian
-            ? buffer.Take(HeaderSize).ToArray()
-            : buffer.Take(HeaderSize).Reverse().ToArray(), 0);
+        return IsLittleEndianMode
+            ? BinaryPrimitives.ReadInt32LittleEndian(buffer)
+            : BinaryPrimitives.ReadInt32BigEndian(buffer);
     }
 
     /// <inheritdoc/>
@@ -87,10 +109,17 @@ public class LitePacketProcessor : ILitePacketProcessor
     public virtual byte[] AppendHeader(byte[] buffer)
     {
         int contentLength = buffer.Length;
-        byte[] contentLengthBuffer = BitConverter.GetBytes(contentLength);
         byte[] packetBuffer = new byte[HeaderSize + buffer.Length];
+        
+        if (IsLittleEndianMode)
+        {
+            BinaryPrimitives.WriteInt32LittleEndian(packetBuffer, contentLength);
+        }
+        else
+        {
+            BinaryPrimitives.WriteInt32BigEndian(packetBuffer, contentLength);
+        }
 
-        Array.Copy(contentLengthBuffer, 0, packetBuffer, 0, HeaderSize);
         Array.Copy(buffer, 0, packetBuffer, HeaderSize, contentLength);
 
         return packetBuffer;

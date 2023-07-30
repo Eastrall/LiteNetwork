@@ -1,19 +1,17 @@
-﻿using Bogus;
-using LiteNetwork.Protocol.Abstractions;
-using System;
+﻿using System.Buffers.Binary;
 using Xunit;
 
 namespace LiteNetwork.Protocol.Tests;
 
 public sealed class DefaultPacketProcessorTests
 {
-    private readonly Faker _faker;
-    private readonly ILitePacketProcessor _packetProcessor;
+    private readonly LitePacketProcessor _littleEndianPacketProcessor;
+    private readonly LitePacketProcessor _bigEndianPacketProcessor;
 
     public DefaultPacketProcessorTests()
     {
-        _faker = new Faker();
-        _packetProcessor = new LitePacketProcessor();
+        _littleEndianPacketProcessor = new LitePacketProcessor(true);
+        _bigEndianPacketProcessor = new LitePacketProcessor(false);
     }
 
     [Theory]
@@ -22,10 +20,32 @@ public sealed class DefaultPacketProcessorTests
     [InlineData(0x4A)]
     [InlineData(0)]
     [InlineData(-1)]
-    public void ParsePacketHeaderTest(int headerValue)
+    public void ParsePacketHeaderLittleEndianTest(int headerValue)
     {
-        var headerBuffer = BitConverter.GetBytes(headerValue);
-        int packetSize = _packetProcessor.GetMessageLength(headerBuffer);
+        Assert.True(_littleEndianPacketProcessor.IsLittleEndianMode);
+
+        var headerBuffer = new byte[sizeof(int)];
+        BinaryPrimitives.WriteInt32LittleEndian(headerBuffer, headerValue);
+
+        int packetSize = _littleEndianPacketProcessor.GetMessageLength(headerBuffer);
+
+        Assert.Equal(headerValue, packetSize);
+    }
+
+    [Theory]
+    [InlineData(35)]
+    [InlineData(23)]
+    [InlineData(0x4A)]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void ParsePacketHeaderBigEndianTest(int headerValue)
+    {
+        Assert.False(_bigEndianPacketProcessor.IsLittleEndianMode);
+
+        var headerBuffer = new byte[sizeof(int)];
+        BinaryPrimitives.WriteInt32BigEndian(headerBuffer, headerValue);
+
+        int packetSize = _bigEndianPacketProcessor.GetMessageLength(headerBuffer);
 
         Assert.Equal(headerValue, packetSize);
     }
@@ -33,6 +53,6 @@ public sealed class DefaultPacketProcessorTests
     [Fact]
     public void DefaultPacketProcessorNeverIncludeHeaderTest()
     {
-        Assert.False(_packetProcessor.IncludeHeader);
+        Assert.False(_littleEndianPacketProcessor.IncludeHeader);
     }
 }
