@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net5.0;net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
 		<LangVersion>10.0</LangVersion>
-		<Version>2.3.0</Version>
+		<Version>2.4.0</Version>
 		<Authors>Filipe GOMES PEIXOTO</Authors>
 		<Product>LiteNetwork</Product>
-		<Copyright>Filipe GOMES PEIXOTO © 2019-2023</Copyright>
+		<Copyright>Filipe GOMES PEIXOTO © 2019-2024</Copyright>
 		<Company>Filipe GOMES PEIXOTO</Company>
 		<PackageProjectUrl>https://github.com/Eastrall/LiteNetwork</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Eastrall/LiteNetwork</RepositoryUrl>
@@ -19,8 +19,8 @@
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<NeutralLanguage>en-001</NeutralLanguage>
-		<AssemblyVersion>2.2.0</AssemblyVersion>
-		<FileVersion>2.2.0</FileVersion>
+		<AssemblyVersion>2.4.0</AssemblyVersion>
+		<FileVersion>2.4.0</FileVersion>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
@@ -30,12 +30,6 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[3.1.20,5)" />
 	</ItemGroup>
 
-	<ItemGroup Condition="('$(TargetFramework)' == 'net5.0')">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[5.0.0,6.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[5.0.0,6)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[5.0.0,6)" />
-	</ItemGroup>
-
 	<ItemGroup Condition="('$(TargetFramework)' == 'net6.0')">
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6,7)" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6,7)" />
@@ -43,9 +37,15 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="('$(TargetFramework)' == 'net7.0')">
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[7,)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[7,)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[7,)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[7,8)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[7,8)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[7,8)" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="('$(TargetFramework)' == 'net8.0')">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[8,)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[7,8)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[7,8)" />
 	</ItemGroup>
 
 	<ItemGroup>

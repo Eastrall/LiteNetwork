@@ -31,6 +31,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Echo.Client", "sampl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Echo.Server", "samples\echo\Sample.Echo.Server\Sample.Echo.Server.csproj", "{62B9676C-F51D-4300-B034-083574149411}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{B6B55AF0-8427-4BA0-9C22-3A7E849BD03E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{8F72405B-AB0A-4439-BD1B-3A086E1DE70A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +93,7 @@ Global
 		{FE07646A-4A52-4DC7-B135-AAD4A68D3292} = {7BA5B264-5610-4FBF-B3EC-3C7C74BB3EC3}
 		{8CC6E8D0-9532-4D3F-83F2-14BE6C3AF71B} = {FE07646A-4A52-4DC7-B135-AAD4A68D3292}
 		{62B9676C-F51D-4300-B034-083574149411} = {FE07646A-4A52-4DC7-B135-AAD4A68D3292}
+		{8F72405B-AB0A-4439-BD1B-3A086E1DE70A} = {B6B55AF0-8427-4BA0-9C22-3A7E849BD03E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97CFF3C5-B79C-4272-95B7-3E9267427D92}
